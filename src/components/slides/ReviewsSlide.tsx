@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { AvatarInitials } from '../AvatarInitials';
 
 interface Review {
   id: number;
   name: string;
   location: string;
-  avatar: string;
   rating: number;
   text: string;
   projectType: string;
@@ -21,7 +21,6 @@ export const ReviewsSlide = () => {
       id: 1,
       name: 'Александр Петров',
       location: 'Москва, ЖК "Сердце Столицы"',
-      avatar: '/images/avatar1.jpg',
       rating: 5,
       text: 'Заказывали капитальный ремонт трёхкомнатной квартиры. Работа выполнена в срок, качество на высоте. Особо отмечу работу прораба Дмитрия — всегда на связи, оперативно решал все вопросы. Рекомендую!',
       projectType: 'Капитальный ремонт, 85 м²'
@@ -30,7 +29,6 @@ export const ReviewsSlide = () => {
       id: 2,
       name: 'Елена Соколова',
       location: 'Московская область, Барвиха',
-      avatar: '/images/avatar2.jpg',
       rating: 5,
       text: 'Делали дизайнерский ремонт загородного дома. Понравилось, что все работы велись по дизайн-проекту, никаких сюрпризов. Материалы закупали сами, но компания помогла с поставщиками. Итогом очень довольны!',
       projectType: 'Дизайнерский ремонт, 220 м²'
@@ -39,7 +37,6 @@ export const ReviewsSlide = () => {
       id: 3,
       name: 'Михаил Васильев',
       location: 'Москва, ММДЦ Москва-Сити',
-      avatar: '/images/avatar3.jpg',
       rating: 5,
       text: 'Ремонт апартаментов в Москва-Сити требовал особого подхода. Команда справилась отлично: сложные архитектурные решения, умный дом, премиум материалы. Сдали даже на неделю раньше срока.',
       projectType: 'Дизайнерский ремонт, 120 м²'
@@ -96,11 +93,7 @@ export const ReviewsSlide = () => {
                     className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 max-w-3xl mx-auto"
                   >
                     <div className="flex items-start gap-6 mb-6">
-                      <img
-                        src={review.avatar}
-                        alt={review.name}
-                        className="w-20 h-20 rounded-full object-cover border-4 border-orange-100"
-                      />
+                      <AvatarInitials name={review.name} size="lg" />
                       <div className="flex-1">
                         <h3 className="text-xl font-bold text-[#141414] font-unbounded">{review.name}</h3>
                         <p className="text-gray-500 text-sm mb-2">{review.location}</p>
