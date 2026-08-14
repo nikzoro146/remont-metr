@@ -32,9 +32,8 @@ export const SlideLayout = ({
       <div 
         data-slide-content
         className="w-full h-full overflow-y-auto"
-        style={{ scrollBehavior: 'smooth' }}
       >
-        <div className="min-h-full">
+        <div className="h-full">
           {children}
         </div>
       </div>

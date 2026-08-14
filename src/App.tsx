@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, createContext, useContext } from 'react';
 import { useSlideNavigation } from './hooks/useSlideNavigation';
 import { SlideLayout } from './components/SlideLayout';
 import { SlideDots } from './components/SlideDots';
@@ -10,12 +10,28 @@ import { LogIn, UserCircle, LogOut } from 'lucide-react';
 
 const TOTAL_SLIDES = 6;
 
+interface SlideContextType {
+  currentSlide: number;
+  goToSlide: (index: number) => void;
+  nextSlide: () => void;
+  prevSlide: () => void;
+  totalSlides: number;
+}
+
+const SlideContext = createContext<SlideContextType | null>(null);
+
+export const useSlide = () => {
+  const ctx = useContext(SlideContext);
+  if (!ctx) throw new Error('useSlide must be used within SlideProvider');
+  return ctx;
+};
+
 function Header() {
   const { user, isAuthenticated, logout } = useAuth();
+  const { goToSlide } = useSlide();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const [isAdminPanelOpen, setIsAdminPanelOpen] = useState(false);
-  const { goToSlide } = useSlideNavigation(TOTAL_SLIDES);
 
   const handleLoginClick = () => {
     setAuthMode('login');
@@ -105,57 +121,57 @@ function Header() {
 }
 
 function AppContent() {
-  const { currentSlide, goToSlide, nextSlide, prevSlide } = useSlideNavigation(TOTAL_SLIDES);
+  const slideNav = useSlideNavigation(TOTAL_SLIDES);
 
   return (
-    <>
+    <SlideContext.Provider value={slideNav}>
       <Header />
       <main className="relative w-full h-screen overflow-hidden bg-[#F4F4F2] pt-16">
         <div className="relative w-full h-full">
-          <SlideLayout 
-            isActive={currentSlide === 0} 
-            onNext={nextSlide}
+          <SlideLayout
+            isActive={slideNav.currentSlide === 0}
+            onNext={slideNav.nextSlide}
             showNav={false}
             isFirst
           >
             <HeroSlide />
           </SlideLayout>
 
-          <SlideLayout 
-            isActive={currentSlide === 1} 
-            onPrev={prevSlide}
-            onNext={nextSlide}
+          <SlideLayout
+            isActive={slideNav.currentSlide === 1}
+            onPrev={slideNav.prevSlide}
+            onNext={slideNav.nextSlide}
           >
             <ServicesSlide />
           </SlideLayout>
 
-          <SlideLayout 
-            isActive={currentSlide === 2} 
-            onPrev={prevSlide}
-            onNext={nextSlide}
+          <SlideLayout
+            isActive={slideNav.currentSlide === 2}
+            onPrev={slideNav.prevSlide}
+            onNext={slideNav.nextSlide}
           >
             <PortfolioSlide />
           </SlideLayout>
 
-          <SlideLayout 
-            isActive={currentSlide === 3} 
-            onPrev={prevSlide}
-            onNext={nextSlide}
+          <SlideLayout
+            isActive={slideNav.currentSlide === 3}
+            onPrev={slideNav.prevSlide}
+            onNext={slideNav.nextSlide}
           >
             <ProcessSlide />
           </SlideLayout>
 
-          <SlideLayout 
-            isActive={currentSlide === 4} 
-            onPrev={prevSlide}
-            onNext={nextSlide}
+          <SlideLayout
+            isActive={slideNav.currentSlide === 4}
+            onPrev={slideNav.prevSlide}
+            onNext={slideNav.nextSlide}
           >
             <ReviewsSlide />
           </SlideLayout>
 
-          <SlideLayout 
-            isActive={currentSlide === 5} 
-            onPrev={prevSlide}
+          <SlideLayout
+            isActive={slideNav.currentSlide === 5}
+            onPrev={slideNav.prevSlide}
             showNav={false}
             isLast
           >
@@ -163,13 +179,13 @@ function AppContent() {
           </SlideLayout>
         </div>
 
-        <SlideDots 
-          totalSlides={TOTAL_SLIDES} 
-          currentSlide={currentSlide} 
-          onSlideChange={goToSlide} 
+        <SlideDots
+          totalSlides={TOTAL_SLIDES}
+          currentSlide={slideNav.currentSlide}
+          onSlideChange={slideNav.goToSlide}
         />
       </main>
-    </>
+    </SlideContext.Provider>
   );
 }
 
