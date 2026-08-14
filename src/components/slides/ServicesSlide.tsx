@@ -11,9 +11,10 @@ interface ServiceCardProps {
   features: string[];
   icon: React.ReactNode;
   delay: number;
+  image: string;
 }
 
-const ServiceCard = ({ name, pricePerSqm, description, features, icon, delay, image }: ServiceCardProps & { image: string }) => (
+const ServiceCard = ({ name, pricePerSqm, description, features, icon, delay, image }: ServiceCardProps) => (
   <motion.div
     initial={{ opacity: 0, y: 40 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -119,6 +120,7 @@ export const ServicesSlide = () => {
           {services.map((service, index) => (
             <ServiceCard
               key={service.type}
+              type={service.type}
               name={service.name}
               pricePerSqm={service.pricePerSqm}
               description={service.description}
