@@ -114,7 +114,7 @@ export const PortfolioSlide = () => {
   ];
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-[#F4F4F2] to-[#E8E8E6] py-20 px-4 overflow-hidden">
+      <div className="relative isolate min-h-screen bg-gradient-to-br from-[#F4F4F2] to-[#E8E8E6] py-20 px-4 overflow-hidden">
       <SlideDecor number="02" />
       <div className="container mx-auto max-w-6xl">
         <motion.div

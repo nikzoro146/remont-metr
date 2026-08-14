@@ -131,10 +131,12 @@ function AppContent() {
           <SlideLayout
             isActive={slideNav.currentSlide === 0}
             onNext={slideNav.nextSlide}
-            showNav={false}
             isFirst
           >
-            <HeroSlide />
+            <HeroSlide
+              onCalculate={() => slideNav.goToSlide(1)}
+              onPortfolio={() => slideNav.goToSlide(2)}
+            />
           </SlideLayout>
 
           <SlideLayout
