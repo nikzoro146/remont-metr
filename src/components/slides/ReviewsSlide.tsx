@@ -1,3 +1,4 @@
+import { SlideDecor } from '../SlideDecor';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
@@ -56,8 +57,9 @@ export const ReviewsSlide = () => {
   const prevReview = () => setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F4F4F2] to-[#E8E8E6] py-20 px-4">
-      <div className="container mx-auto max-w-5xl">
+    <div className="relative min-h-screen bg-gradient-to-br from-[#F4F4F2] to-[#E8E8E6] py-20 px-4 overflow-hidden">
+      <SlideDecor number="04" />
+      <div className="container mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

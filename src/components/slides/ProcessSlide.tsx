@@ -1,3 +1,4 @@
+import { SlideDecor } from '../SlideDecor';
 import { motion } from 'framer-motion';
 import { ClipboardCheck, FileText, Hammer, Key, PhoneCall, Ruler, CheckCircle } from 'lucide-react';
 
@@ -49,8 +50,9 @@ export const ProcessSlide = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F4F4F2] to-[#E8E8E6] py-20 px-4">
-      <div className="container mx-auto max-w-5xl">
+    <div className="relative min-h-screen bg-gradient-to-br from-[#F4F4F2] to-[#E8E8E6] py-20 px-4 overflow-hidden">
+      <SlideDecor number="03" />
+      <div className="container mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

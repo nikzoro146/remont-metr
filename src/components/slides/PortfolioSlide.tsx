@@ -1,3 +1,4 @@
+import { SlideDecor } from '../SlideDecor';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -113,7 +114,8 @@ export const PortfolioSlide = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F4F4F2] to-[#E8E8E6] py-20 px-4">
+    <div className="relative min-h-screen bg-gradient-to-br from-[#F4F4F2] to-[#E8E8E6] py-20 px-4 overflow-hidden">
+      <SlideDecor number="02" />
       <div className="container mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

@@ -1,3 +1,4 @@
+import { SlideDecor } from '../SlideDecor';
 import { motion } from 'framer-motion';
 import { Check, Calculator, Home, Paintbrush, Ruler, Shield, Clock, Users } from 'lucide-react';
 import { useState, useEffect } from 'react';
@@ -99,7 +100,8 @@ export const ServicesSlide = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F4F4F2] to-[#E8E8E6] py-20 px-4">
+    <div className="relative min-h-screen bg-gradient-to-br from-[#F4F4F2] to-[#E8E8E6] py-20 px-4 overflow-hidden">
+      <SlideDecor number="01" />
       <div className="container mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
