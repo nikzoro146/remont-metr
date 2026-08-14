@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSlideNavigation } from './hooks/useSlideNavigation';
 import { SlideLayout } from './components/SlideLayout';
 import { SlideDots } from './components/SlideDots';
-import { HeroSlide } from './components/slides/HeroSlide';
+import { HeroSlide, ServicesSlide, PortfolioSlide, ProcessSlide, ReviewsSlide, ContactsSlide } from './components/slides';
 import { AuthModal } from './components/AuthModal';
 import AdminPanel from './components/AdminPanel';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
@@ -125,10 +125,7 @@ function AppContent() {
             onPrev={prevSlide}
             onNext={nextSlide}
           >
-            <div className="container mx-auto px-4 py-20">
-              <h2 className="text-4xl font-bold text-[#141414] font-unbounded mb-8">Услуги и цены</h2>
-              <p className="text-gray-600">Контент слайда услуг...</p>
-            </div>
+            <ServicesSlide />
           </SlideLayout>
 
           <SlideLayout 
@@ -136,10 +133,7 @@ function AppContent() {
             onPrev={prevSlide}
             onNext={nextSlide}
           >
-            <div className="container mx-auto px-4 py-20">
-              <h2 className="text-4xl font-bold text-[#141414] font-unbounded mb-8">Портфолио</h2>
-              <p className="text-gray-600">Контент слайда портфолио...</p>
-            </div>
+            <PortfolioSlide />
           </SlideLayout>
 
           <SlideLayout 
@@ -147,10 +141,7 @@ function AppContent() {
             onPrev={prevSlide}
             onNext={nextSlide}
           >
-            <div className="container mx-auto px-4 py-20">
-              <h2 className="text-4xl font-bold text-[#141414] font-unbounded mb-8">Этапы работы</h2>
-              <p className="text-gray-600">Контент слайда этапов...</p>
-            </div>
+            <ProcessSlide />
           </SlideLayout>
 
           <SlideLayout 
@@ -158,10 +149,7 @@ function AppContent() {
             onPrev={prevSlide}
             onNext={nextSlide}
           >
-            <div className="container mx-auto px-4 py-20">
-              <h2 className="text-4xl font-bold text-[#141414] font-unbounded mb-8">Отзывы</h2>
-              <p className="text-gray-600">Контент слайда отзывов...</p>
-            </div>
+            <ReviewsSlide />
           </SlideLayout>
 
           <SlideLayout 
@@ -170,10 +158,7 @@ function AppContent() {
             showNav={false}
             isLast
           >
-            <div className="container mx-auto px-4 py-20">
-              <h2 className="text-4xl font-bold text-[#141414] font-unbounded mb-8">Контакты</h2>
-              <p className="text-gray-600">Контент слайда контактов...</p>
-            </div>
+            <ContactsSlide />
           </SlideLayout>
         </div>
 

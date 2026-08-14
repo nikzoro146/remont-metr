@@ -102,14 +102,28 @@ export const HeroSlide = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative h-[400px] md:h-[500px] lg:h-full min-h-[400px]"
+            className="relative h-[400px] md:h-[500px] lg:h-full min-h-[400px] rounded-2xl overflow-hidden shadow-2xl"
           >
-            <iframe
-              src="https://my.spline.design/roomscene-embedded/"
-              className="absolute inset-0 w-full h-full rounded-2xl shadow-2xl"
-              style={{ border: 'none' }}
-              title="3D Scene"
+            {/* Фото интерьера с параллаксом */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ 
+                backgroundImage: 'url(https://images.pexels.com/photos/2082087/pexels-photo-2082087.jpeg?auto=compress&cs=tinysrgb&w=1200)',
+                transform: 'scale(1.1)',
+              }}
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+            
+            {/* Декоративные элементы */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="absolute bottom-6 left-6 right-6 text-white"
+            >
+              <p className="text-sm font-medium opacity-90">Современный интерьер в Москве</p>
+              <p className="text-xs opacity-70">ЖК "Сердце Столицы"</p>
+            </motion.div>
           </motion.div>
         </div>
       </div>
