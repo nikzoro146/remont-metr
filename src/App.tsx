@@ -15,6 +15,7 @@ function Header() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const [isAdminPanelOpen, setIsAdminPanelOpen] = useState(false);
+  const { goToSlide } = useSlideNavigation(TOTAL_SLIDES);
 
   const handleLoginClick = () => {
     setAuthMode('login');
@@ -38,11 +39,11 @@ function Header() {
           </div>
 
           <nav className="hidden md:flex items-center gap-6">
-            <a href="#services" className="font-manrope text-[#141414] hover:text-[#FF5A2A] transition-colors">Услуги</a>
-            <a href="#portfolio" className="font-manrope text-[#141414] hover:text-[#FF5A2A] transition-colors">Портфолио</a>
-            <a href="#process" className="font-manrope text-[#141414] hover:text-[#FF5A2A] transition-colors">Этапы</a>
-            <a href="#reviews" className="font-manrope text-[#141414] hover:text-[#FF5A2A] transition-colors">Отзывы</a>
-            <a href="#contacts" className="font-manrope text-[#141414] hover:text-[#FF5A2A] transition-colors">Контакты</a>
+            <button onClick={() => goToSlide(1)} className="font-manrope text-[#141414] hover:text-[#FF5A2A] transition-colors">Услуги</button>
+            <button onClick={() => goToSlide(2)} className="font-manrope text-[#141414] hover:text-[#FF5A2A] transition-colors">Портфолио</button>
+            <button onClick={() => goToSlide(3)} className="font-manrope text-[#141414] hover:text-[#FF5A2A] transition-colors">Этапы</button>
+            <button onClick={() => goToSlide(4)} className="font-manrope text-[#141414] hover:text-[#FF5A2A] transition-colors">Отзывы</button>
+            <button onClick={() => goToSlide(5)} className="font-manrope text-[#141414] hover:text-[#FF5A2A] transition-colors">Контакты</button>
           </nav>
 
           <div className="flex items-center gap-3">

@@ -30,7 +30,8 @@ export const SlideLayout = ({
       style={{ zIndex: isActive ? 10 : 0 }}
     >
       <div 
-        className={`w-full h-full overflow-y-auto ${!showNav ? 'pb-20' : ''}`}
+        data-slide-content
+        className="w-full h-full overflow-y-auto"
         style={{ scrollBehavior: 'smooth' }}
       >
         <div className="min-h-full">

@@ -21,7 +21,7 @@ export const ReviewsSlide = () => {
       id: 1,
       name: 'Александр Петров',
       location: 'Москва, ЖК "Сердце Столицы"',
-      avatar: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=400',
+      avatar: '/images/avatar1.jpg',
       rating: 5,
       text: 'Заказывали капитальный ремонт трёхкомнатной квартиры. Работа выполнена в срок, качество на высоте. Особо отмечу работу прораба Дмитрия — всегда на связи, оперативно решал все вопросы. Рекомендую!',
       projectType: 'Капитальный ремонт, 85 м²'
@@ -30,7 +30,7 @@ export const ReviewsSlide = () => {
       id: 2,
       name: 'Елена Соколова',
       location: 'Московская область, Барвиха',
-      avatar: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400',
+      avatar: '/images/avatar2.jpg',
       rating: 5,
       text: 'Делали дизайнерский ремонт загородного дома. Понравилось, что все работы велись по дизайн-проекту, никаких сюрпризов. Материалы закупали сами, но компания помогла с поставщиками. Итогом очень довольны!',
       projectType: 'Дизайнерский ремонт, 220 м²'
@@ -39,19 +39,10 @@ export const ReviewsSlide = () => {
       id: 3,
       name: 'Михаил Васильев',
       location: 'Москва, ММДЦ Москва-Сити',
-      avatar: 'https://images.pexels.com/photos/762020/pexels-photo-762020.jpeg?auto=compress&cs=tinysrgb&w=400',
+      avatar: '/images/avatar3.jpg',
       rating: 5,
       text: 'Ремонт апартаментов в Москва-Сити требовал особого подхода. Команда справилась отлично: сложные архитектурные решения, умный дом, премиум материалы. Сдали даже на неделю раньше срока.',
       projectType: 'Дизайнерский ремонт, 120 м²'
-    },
-    {
-      id: 4,
-      name: 'Ольга Новикова',
-      location: 'Москва, район Хамовники',
-      avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=400',
-      rating: 5,
-      text: 'Обратились за косметическим ремонтом перед сдачей квартиры в аренду. Сделали всё быстро и аккуратно. Цена фиксированная, никаких доплат в процессе. Будем сотрудничать ещё!',
-      projectType: 'Косметический ремонт, 45 м²'
     }
   ];
 

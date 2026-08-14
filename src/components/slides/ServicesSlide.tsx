@@ -13,31 +13,34 @@ interface ServiceCardProps {
   delay: number;
 }
 
-const ServiceCard = ({ name, pricePerSqm, description, features, icon, delay }: ServiceCardProps) => (
+const ServiceCard = ({ name, pricePerSqm, description, features, icon, delay, image }: ServiceCardProps & { image: string }) => (
   <motion.div
     initial={{ opacity: 0, y: 40 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-100px" }}
     transition={{ duration: 0.6, delay }}
     whileHover={{ y: -8, scale: 1.02 }}
-    className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl hover:border-orange-200 transition-all"
+    className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl hover:border-orange-200 transition-all"
   >
-    <div className="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
-      {icon}
+    <div className="h-40 bg-cover bg-center" style={{ backgroundImage: `url(${image})` }} />
+    <div className="p-6">
+      <div className="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-4 -mt-10 relative z-10">
+        {icon}
+      </div>
+      <h3 className="text-xl font-bold text-[#141414] font-unbounded mb-2">{name}</h3>
+      <p className="text-gray-600 text-sm mb-4">{description}</p>
+      <div className="text-3xl font-bold text-orange-500 font-unbounded mb-4">
+        {pricePerSqm.toLocaleString('ru-RU')} ₽<span className="text-sm text-gray-500 font-manrope">/м²</span>
+      </div>
+      <ul className="space-y-2">
+        {features.map((feature, i) => (
+          <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+            <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+            <span>{feature}</span>
+          </li>
+        ))}
+      </ul>
     </div>
-    <h3 className="text-xl font-bold text-[#141414] font-unbounded mb-2">{name}</h3>
-    <p className="text-gray-600 text-sm mb-4">{description}</p>
-    <div className="text-3xl font-bold text-orange-500 font-unbounded mb-4">
-      {pricePerSqm.toLocaleString('ru-RU')} ₽<span className="text-sm text-gray-500 font-manrope">/м²</span>
-    </div>
-    <ul className="space-y-2">
-      {features.map((feature, i) => (
-        <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-          <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-          <span>{feature}</span>
-        </li>
-      ))}
-    </ul>
   </motion.div>
 );
 
@@ -71,7 +74,8 @@ export const ServicesSlide = () => {
       pricePerSqm: prices.cosmetic,
       description: 'Обновление интерьера без серьёзных изменений. Идеально для свежих квартир.',
       features: ['Покраска стен и потолков', 'Замена напольных покрытий', 'Установка розеток и выключателей', 'Монтаж плинтусов', 'Уборка после работ'],
-      icon: <Paintbrush className="w-7 h-7 text-orange-500" />
+      icon: <Paintbrush className="w-7 h-7 text-orange-500" />,
+      image: '/images/service-cosmetic.jpg'
     },
     {
       type: 'capital' as const,
@@ -79,7 +83,8 @@ export const ServicesSlide = () => {
       pricePerSqm: prices.capital,
       description: 'Полная перепланировка и замена всех коммуникаций. Для вторичного жилья.',
       features: ['Демонтаж старых покрытий', 'Выравнивание стен и полов', 'Замена электрики и сантехники', 'Укладка плитки и ламината', 'Установка дверей'],
-      icon: <Home className="w-7 h-7 text-orange-500" />
+      icon: <Home className="w-7 h-7 text-orange-500" />,
+      image: '/images/service-capital.jpg'
     },
     {
       type: 'design' as const,
@@ -87,7 +92,8 @@ export const ServicesSlide = () => {
       pricePerSqm: prices.design,
       description: 'Ремонт по индивидуальному дизайн-проекту с авторским надзором.',
       features: ['Разработка дизайн-проекта', 'Авторский надзор', 'Премиум материалы', 'Сложные архитектурные решения', 'Комплектация мебелью'],
-      icon: <Ruler className="w-7 h-7 text-orange-500" />
+      icon: <Ruler className="w-7 h-7 text-orange-500" />,
+      image: '/images/service-design.jpg'
     }
   ];
 
@@ -113,8 +119,13 @@ export const ServicesSlide = () => {
           {services.map((service, index) => (
             <ServiceCard
               key={service.type}
-              {...service}
+              name={service.name}
+              pricePerSqm={service.pricePerSqm}
+              description={service.description}
+              features={service.features}
+              icon={service.icon}
               delay={index * 0.15}
+              image={service.image}
             />
           ))}
         </div>

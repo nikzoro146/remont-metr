@@ -33,36 +33,65 @@ export const useSlideNavigation = (totalSlides: number) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [nextSlide, prevSlide]);
 
-  // Обработка колеса мыши с дебаунсом
+  // Обработка колеса мыши с умным скроллом
   useEffect(() => {
+    let wheelTimeout: NodeJS.Timeout;
+    
     const handleWheel = (e: WheelEvent) => {
-      // Если пользователь скроллит внутри слайда (не у края), не переключаем слайд
       const target = e.target as HTMLElement;
-      const isScrollable = target.scrollHeight > target.clientHeight;
       
-      if (isScrollable) {
-        const atTop = target.scrollTop === 0;
-        const atBottom = target.scrollTop + target.clientHeight >= target.scrollHeight;
+      // Ищем ближайший скроллящийся контейнер внутри текущего слайда
+      const slideContent = target.closest('[data-slide-content]') as HTMLElement;
+      
+      if (slideContent && slideContent.scrollHeight > slideContent.clientHeight) {
+        const atTop = slideContent.scrollTop <= 5;
+        const atBottom = slideContent.scrollTop + slideContent.clientHeight >= slideContent.scrollHeight - 5;
         
+        // Если скролл не у края — скроллим контент
         if ((e.deltaY > 0 && !atBottom) || (e.deltaY < 0 && !atTop)) {
-          return; // Позволяем внутренний скролл
+          slideContent.scrollTop += e.deltaY;
+          e.preventDefault();
+          return;
+        }
+        
+        // Если у края — даём переключить слайд
+        if ((e.deltaY > 0 && atBottom) || (e.deltaY < 0 && atTop)) {
+          if (isScrolling) return;
+          
+          clearTimeout(wheelTimeout);
+          setIsScrolling(true);
+          
+          if (e.deltaY > 0) {
+            nextSlide();
+          } else {
+            prevSlide();
+          }
+          
+          wheelTimeout = setTimeout(() => setIsScrolling(false), 750);
+          return;
         }
       }
-
+      
+      // Если нет внутреннего скролла — переключаем слайд сразу
       if (isScrolling) return;
-
+      
+      clearTimeout(wheelTimeout);
       setIsScrolling(true);
+      
       if (e.deltaY > 0) {
         nextSlide();
       } else if (e.deltaY < 0) {
         prevSlide();
       }
-
-      setTimeout(() => setIsScrolling(false), 800);
+      
+      wheelTimeout = setTimeout(() => setIsScrolling(false), 750);
     };
 
     window.addEventListener('wheel', handleWheel, { passive: false });
-    return () => window.removeEventListener('wheel', handleWheel);
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      clearTimeout(wheelTimeout);
+    };
   }, [nextSlide, prevSlide, isScrolling]);
 
   return { currentSlide, goToSlide, nextSlide, prevSlide, totalSlides };

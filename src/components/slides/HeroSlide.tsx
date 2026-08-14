@@ -102,27 +102,46 @@ export const HeroSlide = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative h-[400px] md:h-[500px] lg:h-full min-h-[400px] rounded-2xl overflow-hidden shadow-2xl"
+            className="relative h-[400px] md:h-[500px] lg:h-full min-h-[400px]"
+            style={{ perspective: '1000px' }}
           >
-            {/* Фото интерьера с параллаксом */}
-            <div 
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ 
-                backgroundImage: 'url(https://images.pexels.com/photos/2082087/pexels-photo-2082087.jpeg?auto=compress&cs=tinysrgb&w=1200)',
-                transform: 'scale(1.1)',
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-            
-            {/* Декоративные элементы */}
+            {/* CSS 3D парящая карточка с фото */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="absolute bottom-6 left-6 right-6 text-white"
+              className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl"
+              style={{ 
+                transformStyle: 'preserve-3d',
+                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 60px rgba(255, 90, 42, 0.3)',
+              }}
+              animate={{ 
+                rotateX: [0, 2, 0, -2, 0],
+                rotateY: [0, -2, 0, 2, 0],
+                y: [0, -10, 0, -5, 0],
+              }}
+              transition={{ 
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+                times: [0, 0.25, 0.5, 0.75, 1]
+              }}
             >
-              <p className="text-sm font-medium opacity-90">Современный интерьер в Москве</p>
-              <p className="text-xs opacity-70">ЖК "Сердце Столицы"</p>
+              <div 
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ 
+                  backgroundImage: 'url(/images/hero.jpg)',
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+              
+              {/* Декоративные элементы */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="absolute bottom-6 left-6 right-6 text-white"
+              >
+                <p className="text-sm font-medium opacity-90">Современный интерьер в Москве</p>
+                <p className="text-xs opacity-70">ЖК "Сердце Столицы"</p>
+              </motion.div>
             </motion.div>
           </motion.div>
         </div>

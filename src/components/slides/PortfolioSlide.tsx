@@ -89,8 +89,8 @@ export const PortfolioSlide = () => {
       location: 'Москва, Пресненский район',
       area: 85,
       duration: '3 месяца',
-      beforeImage: 'https://images.pexels.com/photos/2082087/pexels-photo-2082087.jpeg?auto=compress&cs=tinysrgb&w=800',
-      afterImage: 'https://images.pexels.com/photos/1643389/pexels-photo-1643389.jpeg?auto=compress&cs=tinysrgb&w=800'
+      beforeImage: '/images/portfolio1-before.jpg',
+      afterImage: '/images/portfolio1-after.jpg'
     },
     {
       id: 2,
@@ -98,8 +98,8 @@ export const PortfolioSlide = () => {
       location: 'Московская область, Барвиха',
       area: 220,
       duration: '6 месяцев',
-      beforeImage: 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=800',
-      afterImage: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800'
+      beforeImage: '/images/portfolio2-before.jpg',
+      afterImage: '/images/portfolio2-after.jpg'
     },
     {
       id: 3,
@@ -107,8 +107,8 @@ export const PortfolioSlide = () => {
       location: 'Москва, ММДЦ Москва-Сити',
       area: 120,
       duration: '4 месяца',
-      beforeImage: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&w=800',
-      afterImage: 'https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=800'
+      beforeImage: '/images/portfolio3-before.jpg',
+      afterImage: '/images/portfolio3-after.jpg'
     }
   ];
 
