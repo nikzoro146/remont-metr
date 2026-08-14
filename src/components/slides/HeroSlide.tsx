@@ -54,14 +54,13 @@ export const HeroSlide = ({ onCalculate, onPortfolio }: HeroSlideProps) => {
 
       {/* Контент */}
       <div className="relative z-10 container mx-auto px-4 h-full flex items-center">
-        <div className="grid lg:grid-cols-2 gap-12 items-center w-full pt-16 pb-16">
-          {/* ЛЕВАЯ КОЛОНКА */}
+        <div className="grid lg:grid-cols-2 gap-8 items-center w-full pt-6 pb-8 lg:pt-16 lg:pb-16">          {/* ЛЕВАЯ КОЛОНКА */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="space-y-6"
-          >
+            className="space-y-4 lg:space-y-6"
+                      >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -115,16 +114,14 @@ export const HeroSlide = ({ onCalculate, onPortfolio }: HeroSlideProps) => {
             </div>
 
             {/* Счётчики */}
-            <div className="pt-4 border-t border-gray-200 space-y-2">
-              <AnimatedCounter value={9} suffix="+" label="лет опыта" delay={0.5} />
+            <div className="pt-4 border-t border-gray-200 flex flex-wrap gap-x-6 gap-y-2">              <AnimatedCounter value={9} suffix="+" label="лет опыта" delay={0.5} />
               <AnimatedCounter value={500} suffix="+" label="объектов сдано" delay={0.6} />
               <AnimatedCounter value={50000} suffix=" м²" label="общая площадь" delay={0.7} />
             </div>
           </motion.div>
 
           {/* ПРАВАЯ КОЛОНКА — 3D */}
-          <div className="relative h-[400px] md:h-[500px] lg:h-[550px]">
-            {/* Чип: Рейтинг — рядом с моделью */}
+          <div className="relative h-[300px] md:h-[500px] lg:h-[550px]">            {/* Чип: Рейтинг — рядом с моделью */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [0, -12, 0] }}
@@ -132,8 +129,7 @@ export const HeroSlide = ({ onCalculate, onPortfolio }: HeroSlideProps) => {
                 opacity: { duration: 0.6, delay: 0.8 },
                 y: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
               }}
-              className="absolute top-[30%] -left-4 md:-left-8 z-20 bg-white rounded-xl shadow-xl px-4 py-3 border border-gray-100"
-            >
+              className="hidden md:block absolute top-[30%] -left-4 md:-left-8 z-20 bg-white rounded-xl shadow-xl px-4 py-3 border border-gray-100"            >
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center">
                   <Award className="w-4 h-4 text-orange-500" />
@@ -153,8 +149,7 @@ export const HeroSlide = ({ onCalculate, onPortfolio }: HeroSlideProps) => {
                 opacity: { duration: 0.6, delay: 1.0 },
                 y: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
               }}
-              className="absolute bottom-[12%] -right-4 md:-right-8 z-20 bg-white rounded-xl shadow-xl px-4 py-3 border border-gray-100"
-            >
+              className="hidden md:block absolute bottom-[12%] -right-4 md:-right-8 z-20 bg-white rounded-xl shadow-xl px-4 py-3 border border-gray-100"            >
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center">
                   <ShieldCheck className="w-4 h-4 text-green-600" />
@@ -174,8 +169,7 @@ export const HeroSlide = ({ onCalculate, onPortfolio }: HeroSlideProps) => {
                 opacity: { duration: 0.6, delay: 1.2 },
                 x: { duration: 3.5, repeat: Infinity, ease: 'easeInOut' },
               }}
-              className="absolute top-[22%] -right-6 md:-right-12 z-20 bg-white rounded-xl shadow-xl px-4 py-3 border border-gray-100"
-            >
+              className="hidden md:block absolute top-[22%] -right-6 md:-right-12 z-20 bg-white rounded-xl shadow-xl px-4 py-3 border border-gray-100"            >
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
                   <Ruler className="w-4 h-4 text-blue-600" />
@@ -192,8 +186,7 @@ export const HeroSlide = ({ onCalculate, onPortfolio }: HeroSlideProps) => {
 
             {/* 3D без фона */}
             <motion.div className="relative w-full h-full">
-              <div className="absolute -inset-y-[8%] -inset-x-[16%] translate-x-[6%]">
-                <Model3D />
+              <div className="absolute inset-0 md:-inset-y-[8%] md:-inset-x-[16%] md:translate-x-[6%]">                <Model3D />
               </div>
 
               <motion.div
