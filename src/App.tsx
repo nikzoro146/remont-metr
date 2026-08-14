@@ -1,122 +1,198 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from 'react';
+import { useSlideNavigation } from './hooks/useSlideNavigation';
+import { SlideLayout } from './components/SlideLayout';
+import { SlideDots } from './components/SlideDots';
+import { HeroSlide } from './components/slides/HeroSlide';
+import { AuthModal } from './components/AuthModal';
+import AdminPanel from './components/AdminPanel';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { LogIn, UserCircle, LogOut } from 'lucide-react';
 
-function App() {
-  const [count, setCount] = useState(0)
+const TOTAL_SLIDES = 6;
+
+function Header() {
+  const { user, isAuthenticated, logout } = useAuth();
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const [isAdminPanelOpen, setIsAdminPanelOpen] = useState(false);
+
+  const handleLoginClick = () => {
+    setAuthMode('login');
+    setIsAuthModalOpen(true);
+  };
+
+  const handleRegisterClick = () => {
+    setAuthMode('register');
+    setIsAuthModalOpen(true);
+  };
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      <header className="fixed top-0 left-0 right-0 z-40 bg-[#F4F4F2]/80 backdrop-blur-md border-b border-gray-200">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-10 h-10 bg-[#FF5A2A] rounded-lg flex items-center justify-center">
+              <span className="text-white font-unbounded font-bold text-xl">М</span>
+            </div>
+            <span className="font-unbounded font-bold text-2xl text-[#141414]">МЕТР</span>
+          </div>
 
-      <div className="ticks"></div>
+          <nav className="hidden md:flex items-center gap-6">
+            <a href="#services" className="font-manrope text-[#141414] hover:text-[#FF5A2A] transition-colors">Услуги</a>
+            <a href="#portfolio" className="font-manrope text-[#141414] hover:text-[#FF5A2A] transition-colors">Портфолио</a>
+            <a href="#process" className="font-manrope text-[#141414] hover:text-[#FF5A2A] transition-colors">Этапы</a>
+            <a href="#reviews" className="font-manrope text-[#141414] hover:text-[#FF5A2A] transition-colors">Отзывы</a>
+            <a href="#contacts" className="font-manrope text-[#141414] hover:text-[#FF5A2A] transition-colors">Контакты</a>
+          </nav>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+          <div className="flex items-center gap-3">
+            {isAuthenticated && user ? (
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 text-[#141414]">
+                  <UserCircle className="w-6 h-6" />
+                  <span className="font-manrope font-medium hidden sm:inline">{user.name}</span>
+                </div>
+                {user.role === 'admin' && (
+                  <button
+                    onClick={() => setIsAdminPanelOpen(true)}
+                    className="px-3 py-1.5 bg-[#141414] text-white text-sm font-manrope font-medium rounded-lg hover:bg-[#333] transition-colors"
+                  >
+                    Админка
+                  </button>
+                )}
+                <button
+                  onClick={logout}
+                  className="p-2 hover:bg-gray-200 rounded-full transition-colors"
+                  title="Выйти"
+                >
+                  <LogOut className="w-5 h-5 text-[#141414]" />
+                </button>
+              </div>
+            ) : (
+              <>
+                <button
+                  onClick={handleLoginClick}
+                  className="flex items-center gap-2 px-4 py-2 text-[#141414] font-manrope font-medium hover:bg-gray-200 rounded-lg transition-colors"
+                >
+                  <LogIn className="w-5 h-5" />
+                  <span className="hidden sm:inline">Войти</span>
+                </button>
+                <button
+                  onClick={handleRegisterClick}
+                  className="px-4 py-2 bg-[#FF5A2A] text-white font-manrope font-medium rounded-lg hover:bg-[#e54d22] transition-colors"
+                >
+                  Зарегистрироваться
+                </button>
+              </>
+            )}
+          </div>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      </header>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        defaultMode={authMode}
+      />
+
+      <AdminPanel
+        isOpen={isAdminPanelOpen}
+        onClose={() => setIsAdminPanelOpen(false)}
+      />
     </>
-  )
+  );
 }
 
-export default App
+function AppContent() {
+  const { currentSlide, goToSlide, nextSlide, prevSlide } = useSlideNavigation(TOTAL_SLIDES);
+
+  return (
+    <>
+      <Header />
+      <main className="relative w-full h-screen overflow-hidden bg-[#F4F4F2] pt-16">
+        <div className="relative w-full h-full">
+          <SlideLayout 
+            isActive={currentSlide === 0} 
+            onNext={nextSlide}
+            showNav={false}
+            isFirst
+          >
+            <HeroSlide />
+          </SlideLayout>
+
+          <SlideLayout 
+            isActive={currentSlide === 1} 
+            onPrev={prevSlide}
+            onNext={nextSlide}
+          >
+            <div className="container mx-auto px-4 py-20">
+              <h2 className="text-4xl font-bold text-[#141414] font-unbounded mb-8">Услуги и цены</h2>
+              <p className="text-gray-600">Контент слайда услуг...</p>
+            </div>
+          </SlideLayout>
+
+          <SlideLayout 
+            isActive={currentSlide === 2} 
+            onPrev={prevSlide}
+            onNext={nextSlide}
+          >
+            <div className="container mx-auto px-4 py-20">
+              <h2 className="text-4xl font-bold text-[#141414] font-unbounded mb-8">Портфолио</h2>
+              <p className="text-gray-600">Контент слайда портфолио...</p>
+            </div>
+          </SlideLayout>
+
+          <SlideLayout 
+            isActive={currentSlide === 3} 
+            onPrev={prevSlide}
+            onNext={nextSlide}
+          >
+            <div className="container mx-auto px-4 py-20">
+              <h2 className="text-4xl font-bold text-[#141414] font-unbounded mb-8">Этапы работы</h2>
+              <p className="text-gray-600">Контент слайда этапов...</p>
+            </div>
+          </SlideLayout>
+
+          <SlideLayout 
+            isActive={currentSlide === 4} 
+            onPrev={prevSlide}
+            onNext={nextSlide}
+          >
+            <div className="container mx-auto px-4 py-20">
+              <h2 className="text-4xl font-bold text-[#141414] font-unbounded mb-8">Отзывы</h2>
+              <p className="text-gray-600">Контент слайда отзывов...</p>
+            </div>
+          </SlideLayout>
+
+          <SlideLayout 
+            isActive={currentSlide === 5} 
+            onPrev={prevSlide}
+            showNav={false}
+            isLast
+          >
+            <div className="container mx-auto px-4 py-20">
+              <h2 className="text-4xl font-bold text-[#141414] font-unbounded mb-8">Контакты</h2>
+              <p className="text-gray-600">Контент слайда контактов...</p>
+            </div>
+          </SlideLayout>
+        </div>
+
+        <SlideDots 
+          totalSlides={TOTAL_SLIDES} 
+          currentSlide={currentSlide} 
+          onSlideChange={goToSlide} 
+        />
+      </main>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+}
+
+export default App;
